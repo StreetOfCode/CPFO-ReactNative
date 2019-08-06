@@ -1,25 +1,27 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View } from 'react-native';
+import { Text, TextInput, Button, View } from 'react-native';
 
 class MyFirstComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = { isShowingText: false, text: '' };
+    this.state = { isShowingText: false, text: 'Some text' };
   }  
-  
-  componentDidMount(){
-    // Toggle the state every second
-    setInterval(() => (
-      this.setState(previousState => (
-        { isShowingText: !previousState.isShowingText }
-      ))
-    ), 1000);
+
+  toggleText() {
+    this.setState(previousState => (
+      { isShowingText: !previousState.isShowingText }
+    ));
   }
 
   render() {  
     return (
       <View>
-        <TextInput onChangeText={(text) => this.setState({text: text})}/>
+        <Button 
+          onPress={() => this.toggleText()}
+          title="Toggle text" />
+        <TextInput 
+          onChangeText={(text) => this.setState({text: text})}
+          value={this.state.text} />
         {(!this.state.isShowingText || this.state.text == '') && <Text>{this.state.text}</Text>}
       </View>
     );
