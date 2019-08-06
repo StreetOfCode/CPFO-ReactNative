@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, TextInput, View } from 'react-native';
 
 class MyFirstComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { isShowingText: false, text: '' };
+  }  
   
   componentDidMount(){
     // Toggle the state every second
@@ -11,18 +15,12 @@ class MyFirstComponent extends Component {
       ))
     ), 1000);
   }
-  
-  state = { isShowingText: true };
 
-  render() {
-    if (!this.state.isShowingText) {
-      return null;
-    }
-
-    let mahName = "Gabriel";    
+  render() {  
     return (
       <View>
-        <Text>{mahName}</Text>
+        <TextInput onChangeText={(text) => this.setState({text: text})}/>
+        {(!this.state.isShowingText || this.state.text == '') && <Text>{this.state.text}</Text>}
       </View>
     );
   }
